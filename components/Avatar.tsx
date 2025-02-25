@@ -22,7 +22,7 @@ export const Avatar = (props: AvatarProps) => {
     const isLocal = window.location.hostname === 'localhost'
     setBaseUrl(isLocal 
       ? 'https://pub-721c47b6ff3b462c912047ba95047431.r2.dev'
-      : 'https://382e3677732d815d678860b4a09b4d59.r2.cloudflarestorage.com/hyperfy-fbx'
+      : 'https://hyperfy-content.com/hyperfy-fbx'
     )
   }, [])
 

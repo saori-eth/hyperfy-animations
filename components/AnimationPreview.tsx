@@ -14,7 +14,7 @@ export default function AnimationPreview({ selectedAnimation }: AnimationPreview
     const isLocal = window.location.hostname === 'localhost'
     setBaseUrl(isLocal 
       ? 'https://pub-ac11f60c4b384fa1b5f4cb1e2bba77ba.r2.dev'
-      : 'https://382e3677732d815d678860b4a09b4d59.r2.cloudflarestorage.com/hyperfy-animations'
+      : 'https://hyperfy-content.com/hyperfy-animations'
     )
   }, [])
 
