@@ -12,10 +12,10 @@ export default function AnimationList({
   onSelectAnimation,
 }: AnimationListProps) {
   return (
-    <div className="w-1/3 border-r border-gray-200 overflow-y-auto">
-      <div className="p-4">
-        <h1 className="text-2xl font-bold mb-4">Animations</h1>
-        <div className="space-y-2">
+    <div className="w-1/3 border-r border-gray-600/20 overflow-y-auto bg-black/80 backdrop-blur-lg">
+      <div className="p-6">
+        <h1 className="text-2xl font-bold mb-6 text-white/90">Hyperfy Animations</h1>
+        <div className="space-y-3">
           {animations.map((animation) => (
             <AnimationItem
               key={animation}

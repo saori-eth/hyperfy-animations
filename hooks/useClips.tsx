@@ -3,23 +3,18 @@ import type { VRM } from '@pixiv/three-vrm'
 import { useState, useEffect } from 'react'
 import type { AnimationClip } from 'three'
 
-export interface AnimationEntry {
-  name: string
-  url: string
-}
-
-export const useClips = (avatar: VRM, animations: AnimationEntry[]): AnimationClip[] => {
+export const useClips = (avatar: VRM, animationUrl: string | null): AnimationClip[] => {
   const [clips, setClips] = useState<AnimationClip[]>([])
 
   useEffect(() => {
-    animations.forEach(({ name, url }) => {
-      loadAnim(url, avatar).then((clip) => {
-        if (!clip) return
-        clip.name = name
-        setClips((clips) => [...clips, clip])
-      })
+    if (!animationUrl) return
+    
+    loadAnim(animationUrl, avatar).then((clip) => {
+      if (!clip) return
+      clip.name = 'animation'
+      setClips([clip]) // Replace existing clips with the new one
     })
-  }, [avatar, animations])
+  }, [avatar, animationUrl])
 
   return clips
 }

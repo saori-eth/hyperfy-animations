@@ -6,14 +6,18 @@ import { Camera } from './Camera'
 import { Skybox } from './Skybox'
 import { MeshReflectorMaterial } from '@react-three/drei'
 
-const Experience = () => {
+interface ExperienceProps {
+  selectedAnimation: string | null
+}
+
+const Experience = ({ selectedAnimation }: ExperienceProps) => {
 
   return (
     <Canvas>
       <Suspense fallback={null}>
         <ambientLight intensity={0.5} />
         <Camera />
-        <Avatar />
+        <Avatar selectedAnimation={selectedAnimation} />
         <Skybox />
         <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
         <planeGeometry args={[100, 100]} />
