@@ -1,37 +1,29 @@
 'use client'
 import { Canvas } from '@react-three/fiber'
-import {
-  // OrbitControls,
-  PerspectiveCamera,
-  ScrollControls,
-} from '@react-three/drei'
-import { Suspense, useEffect, useState } from 'react'
-import { World } from './World'
-import { GUI } from './GUI'
+import { Suspense } from 'react'
+import { Avatar } from './Avatar'
+import { Camera } from './Camera'
+import { Skybox } from './Skybox'
+import { MeshReflectorMaterial } from '@react-three/drei'
 
-interface ExperienceProps {
-  setLoaded: (loaded: boolean) => void
-}
+const Experience = () => {
 
-const Experience = (props: ExperienceProps) => {
-  const [mobile, setMobile] = useState(window.innerWidth < 768)
-  useEffect(() => {
-    window.addEventListener('resize', () => {
-      setMobile(window.innerWidth < 768)
-    })
-  }, [])
   return (
     <Canvas>
       <Suspense fallback={null}>
-        <ScrollControls pages={2} damping={0.1}>
-          <GUI />
-        </ScrollControls>
-        <PerspectiveCamera
-          makeDefault
-          position={[0.5, 1.25, 2]}
-          fov={mobile ? 60 : 50}
+        <ambientLight intensity={0.5} />
+        <Camera />
+        <Avatar />
+        <Skybox />
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
+        <planeGeometry args={[100, 100]} />
+        <MeshReflectorMaterial
+          metalness={0.5}
+          roughness={0.5}
+          mirror={0.5}
+          color={'#a0a0a0'}
         />
-        <World mobile={mobile} setLoaded={props.setLoaded} />
+      </mesh>
       </Suspense>
     </Canvas>
   )
