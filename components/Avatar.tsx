@@ -3,7 +3,7 @@ import { useClips } from '@/hooks/useClips'
 import { useVRMloader } from '@/hooks/useVRMLoader'
 import { SpotLight, useAnimations } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 
 
@@ -11,14 +11,23 @@ interface AvatarProps {
   selectedAnimation: string | null
 }
 
-const isLocal = window.location.hostname === 'localhost'
-const BASE_URL = isLocal ? 'https://pub-721c47b6ff3b462c912047ba95047431.r2.dev' : 'https://382e3677732d815d678860b4a09b4d59.r2.cloudflarestorage.com/hyperfy-fbx'
-const CROSSFADE_DURATION = 0.3 // Slightly faster transition
+const CROSSFADE_DURATION = 0.3
 
 export const Avatar = (props: AvatarProps) => {
   const { selectedAnimation } = props
+  const [baseUrl, setBaseUrl] = useState('')
+
+  useEffect(() => {
+    // Check hostname only after component mounts (client-side)
+    const isLocal = window.location.hostname === 'localhost'
+    setBaseUrl(isLocal 
+      ? 'https://pub-721c47b6ff3b462c912047ba95047431.r2.dev'
+      : 'https://382e3677732d815d678860b4a09b4d59.r2.cloudflarestorage.com/hyperfy-fbx'
+    )
+  }, [])
+
   const vrm = useVRMloader('/avatar/avatar.vrm')
-  const animationUrl = selectedAnimation ? `${BASE_URL}/${selectedAnimation}.fbx` : null
+  const animationUrl = selectedAnimation && baseUrl ? `${baseUrl}/${selectedAnimation}.fbx` : null
   const clips = useClips(vrm, animationUrl)
   const { mixer, actions } = useAnimations(clips, vrm.scene)
   const initialPosition = useRef(new THREE.Vector3(0, 0.1, 0))

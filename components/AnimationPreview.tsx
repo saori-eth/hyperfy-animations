@@ -1,19 +1,26 @@
 'use client'
 import dynamic from "next/dynamic"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 const Experience = dynamic(() => import('@/components/Experience'), { ssr: false })
 
 interface AnimationPreviewProps {
   selectedAnimation: string | null
 }
 
-const isLocal = window.location.hostname === 'localhost'
-
 export default function AnimationPreview({ selectedAnimation }: AnimationPreviewProps) {
+  const [baseUrl, setBaseUrl] = useState('')
+
+  useEffect(() => {
+    const isLocal = window.location.hostname === 'localhost'
+    setBaseUrl(isLocal 
+      ? 'https://pub-ac11f60c4b384fa1b5f4cb1e2bba77ba.r2.dev'
+      : 'https://382e3677732d815d678860b4a09b4d59.r2.cloudflarestorage.com/hyperfy-animations'
+    )
+  }, [])
+
   const handleDownload = () => {
-    if (!selectedAnimation) return
-    const BASE_URL = isLocal ? 'https://pub-ac11f60c4b384fa1b5f4cb1e2bba77ba.r2.dev' : 'https://382e3677732d815d678860b4a09b4d59.r2.cloudflarestorage.com/hyperfy-animations'
-    const url = `${BASE_URL}/${selectedAnimation}.glb`
+    if (!selectedAnimation || !baseUrl) return
+    const url = `${baseUrl}/${selectedAnimation}.glb`
     const link = document.createElement('a')
     link.href = url
     link.download = `${selectedAnimation}.glb`
