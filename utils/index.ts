@@ -1,0 +1,1 @@
+export { loadAnim } from './vrm'
