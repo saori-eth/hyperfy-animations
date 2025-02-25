@@ -1,3 +1,4 @@
+'use client'
 import { useClips } from '@/hooks/useClips'
 import { useVRMloader } from '@/hooks/useVRMLoader'
 import { SpotLight, useAnimations } from '@react-three/drei'
@@ -5,11 +6,13 @@ import { useFrame } from '@react-three/fiber'
 import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 
+
 interface AvatarProps {
   selectedAnimation: string | null
 }
 
-const BASE_URL = 'https://pub-721c47b6ff3b462c912047ba95047431.r2.dev'
+const isLocal = window.location.hostname === 'localhost'
+const BASE_URL = isLocal ? 'https://pub-721c47b6ff3b462c912047ba95047431.r2.dev' : 'https://382e3677732d815d678860b4a09b4d59.r2.cloudflarestorage.com/hyperfy-fbx'
 const CROSSFADE_DURATION = 0.3 // Slightly faster transition
 
 export const Avatar = (props: AvatarProps) => {
@@ -21,8 +24,6 @@ export const Avatar = (props: AvatarProps) => {
   const initialPosition = useRef(new THREE.Vector3(0, 0.1, 0))
   const currentActionRef = useRef<THREE.AnimationAction | null>(null)
   const transitionTimeoutRef = useRef<NodeJS.Timeout>()
-
-  console.log('actions', actions)
 
   useEffect(() => {
     // Store initial position when the component mounts
