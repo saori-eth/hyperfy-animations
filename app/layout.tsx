@@ -12,8 +12,8 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: 'Saori',
-  description: 'Personal Site',
+  title: 'Hyperfy Animations',
+  description: 'All Mixamo animations converted for use in Hyperfy',
 }
 
 export default function RootLayout({
