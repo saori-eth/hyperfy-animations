@@ -14,7 +14,10 @@ export const useClips = (avatar: VRM, animationUrl: string | null): AnimationCli
     
     loadAnim(animationUrl, avatar).then((clip) => {
       if (!clip) return
-      clip.name = 'animation'
+      
+      // Extract filename from URL (text between last slash and .fbx)
+      const filename = animationUrl.split('/').pop()?.split('.fbx')[0] || 'animation'
+      clip.name = filename
       setClips([clip]) // Replace existing clips with the new one
     })
   }, [avatar, animationUrl])
