@@ -1,6 +1,27 @@
 import * as THREE from 'three'
 import { FBXLoader } from 'three/addons/loaders/FBXLoader.js'
-import type { VRM, VRMHumanBoneName } from '@pixiv/three-vrm'
+import { VRMHumanBoneName, type VRM } from '@pixiv/three-vrm'
+
+/**
+ * Reset a VRM model to its initial T-pose state
+ * @param {VRM} vrm The VRM model to reset
+ */
+export const resetVRM = (vrm: VRM) => {
+  if (!vrm.humanoid) return
+
+  // Reset all humanoid bones to their initial rotation
+  Object.values(VRMHumanBoneName).forEach((boneName) => {
+    const bone = vrm.humanoid?.getNormalizedBoneNode(boneName)
+    if (bone) {
+      bone.quaternion.set(0, 0, 0, 1) // Reset to identity quaternion
+      bone.position.set(0, 0, 0) // Reset position
+      bone.updateMatrix()
+    }
+  })
+
+  // Update VRM after resetting bones
+  vrm.update(0) // Pass deltaTime of 0 since we're just resetting
+}
 
 /**
  * Load Mixamo animation, convert for three-vrm use, and return it.

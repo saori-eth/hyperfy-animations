@@ -1,1 +1,1 @@
-export { loadAnim } from './vrm'
+export { loadAnim, resetVRM } from './vrm'

@@ -19,7 +19,7 @@ const Experience = ({ selectedAnimation }: ExperienceProps) => {
         <Camera />
         <Avatar selectedAnimation={selectedAnimation} />
         <Skybox />
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.65, 0]}>
         <planeGeometry args={[100, 100]} />
         <MeshReflectorMaterial
           metalness={0.5}

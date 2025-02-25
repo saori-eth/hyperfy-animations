@@ -1,4 +1,4 @@
-import { loadAnim } from '../utils'
+import { loadAnim, resetVRM } from '../utils'
 import type { VRM } from '@pixiv/three-vrm'
 import { useState, useEffect } from 'react'
 import type { AnimationClip } from 'three'
@@ -8,6 +8,9 @@ export const useClips = (avatar: VRM, animationUrl: string | null): AnimationCli
 
   useEffect(() => {
     if (!animationUrl) return
+    
+    // Reset the avatar to its initial pose before loading new animation
+    resetVRM(avatar)
     
     loadAnim(animationUrl, avatar).then((clip) => {
       if (!clip) return

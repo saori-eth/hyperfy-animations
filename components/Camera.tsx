@@ -7,7 +7,7 @@ interface CameraProps {
   target?: [number, number, number]
 }
 
-export const Camera = ({ target = [0, 0.75, 0], position = [0, 1, 2] }: CameraProps) => {
+export const Camera = ({ target = [0, 1.2, 0], position = [0, 1, 2] }: CameraProps) => {
   const camControls = useRef<CameraControls | null>(null)
 
   useEffect(() => {
