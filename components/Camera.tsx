@@ -1,13 +1,16 @@
-import { CameraControls } from "@react-three/drei"
-import { useFrame } from "@react-three/fiber"
-import { useEffect, useRef } from "react"
+import { CameraControls } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber'
+import { useEffect, useRef } from 'react'
 
 interface CameraProps {
   position?: [number, number, number]
   target?: [number, number, number]
 }
 
-export const Camera = ({ target = [0, 0.5, 0], position = [0, 0.5, 2.5] }: CameraProps) => {
+export const Camera = ({
+  target = [0, 0.5, 0],
+  position = [0, 0.5, 2],
+}: CameraProps) => {
   const camControls = useRef<CameraControls | null>(null)
 
   useEffect(() => {
@@ -22,5 +25,5 @@ export const Camera = ({ target = [0, 0.5, 0], position = [0, 0.5, 2.5] }: Camer
     }
   })
 
-  return <CameraControls ref={camControls} />
+  return <CameraControls ref={camControls} minDistance={2} maxDistance={5} />
 }
